@@ -1,2 +1,7 @@
 # taint_for_php7.0
-1、sprintf、vsprintf这两个函数在使用%d时，存在强制转换为int型，但是，taint无法识别 针对此问题，我对sprintf和vsprintf的逻辑判断进行更改， 2、使用针对XSS的过滤函数时，sql注入的漏洞无法检测 在php_taint.h中新加了多个污染位置 3、使用base64_decode、json_decode、urldecode进行处理后的参数，无法检测漏洞 对这三个函数的返回结果分别进行hook
+修复了
+1、sprintf、vsprintf这两个函数在使用%d时，存在强制转换为int型
+2、使用针对XSS的过滤函数时，sql注入的漏洞无法检测 
+3、使用base64_decode、json_decode、urldecode进行处理后的参数，无法检测漏洞 
+增加了
+1、taint的log，只包含当前函数名、产生漏洞的函数名、提示信息、当前行这些信息，无法根据这些信息对上层的action进行定位。所以，为taint添加了request_uri信息
